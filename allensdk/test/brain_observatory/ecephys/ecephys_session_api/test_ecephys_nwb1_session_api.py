@@ -26,16 +26,18 @@ def test_spikes_nwb1(nwb_path):
     assert(isinstance(session.units, pd.DataFrame))
     assert(len(session.units) == 1363)
 
+    print(session.stimulus_names)
+
     assert(isinstance(session.stimulus_presentations, pd.DataFrame))
     assert(len(session.stimulus_presentations) == 70390)
-    assert(len(session.get_presentations_for_stimulus(['Natural Images_5'])) == 5950)
-    assert(len(session.get_presentations_for_stimulus(['drifting_gratings_2'])) == 630)
-    assert(len(session.get_presentations_for_stimulus(['flash_250ms_1'])) == 150)
-    assert(len(session.get_presentations_for_stimulus(['gabor_20_deg_250ms_0'])) == 3645)
-    assert(len(session.get_presentations_for_stimulus(['natural_movie_1_3'])) == 18000)
-    assert(len(session.get_presentations_for_stimulus(['natural_movie_3_4'])) == 36000)
-    assert(len(session.get_presentations_for_stimulus(['spontaneous'])) == 15)
-    assert(len(session.get_presentations_for_stimulus(['static_gratings_6'])) == 6000)
+    assert(len(session.get_stimulus_table(['Natural Images_5'])) == 5950)
+    assert(len(session.get_stimulus_table(['drifting_gratings_2'])) == 630)
+    assert(len(session.get_stimulus_table(['flash_250ms_1'])) == 150)
+    assert(len(session.get_stimulus_table(['gabor_20_deg_250ms_0'])) == 3645)
+    assert(len(session.get_stimulus_table(['natural_movie_one_three'])) == 18000)
+    assert(len(session.get_stimulus_table(['natural_movie_three_four'])) == 36000)
+    assert(len(session.get_stimulus_table(['spontaneous'])) == 15)
+    assert(len(session.get_stimulus_table(['static_gratings_6'])) == 6000)
 
     assert(session.running_speed.shape[0] == 365700)
 
@@ -51,7 +53,9 @@ def test_spikes_nwb1(nwb_path):
     pst = session.presentationwise_spike_times()
     assert(isinstance(pst, pd.DataFrame) and len(pst) > 0)
 
-    cpc = session.conditionwise_spike_counts()
+    cpc = session.conditionwise_spike_statistics(
+        stimulus_presentation_ids=session.stimulus_presentations.index.values[:40]
+    )
     assert(isinstance(cpc, pd.DataFrame) and len(cpc) > 0)
 
 

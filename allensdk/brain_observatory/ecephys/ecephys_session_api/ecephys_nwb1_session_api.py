@@ -81,12 +81,12 @@ class EcephysNwb1Api(EcephysSessionApi):
         return [(pname, pgrp) for pname, pgrp in self.processing_grp.items()
                 if isinstance(pgrp, h5py.Group) and pname.lower().startswith('probe')]
 
-    def get_running_speed(self) -> RunningSpeed:
+    def get_running_speed(self):
         running_speed_grp = self.running_speed_grp
 
         return pd.DataFrame({
-            "timestamps": running_speed_grp['timestamps'][:],
-            "values": running_speed_grp['data'][:] # TODO: what has been done to these? Are they just dx?
+            "start_time": running_speed_grp['timestamps'][:],
+            "velocity": running_speed_grp['data'][:]  # average velocities over a given interval
         })
 
     __stim_col_map = {
@@ -220,7 +220,7 @@ class EcephysNwb1Api(EcephysSessionApi):
             'probe_id': prb_ids[:n_channels],
             'probe_horizontal_position': prb_hrz_pos[:n_channels],
             'probe_vertical_position': prb_vert_pos[:n_channels],
-            'manual_structure_acronym': struct_acronyms[:n_channels],
+            'ecephys_structure_acronym': struct_acronyms[:n_channels],
             'valid_data': True  # TODO: Pull out valid table column from NWB
         })
         channels_df.set_index('id', inplace=True)

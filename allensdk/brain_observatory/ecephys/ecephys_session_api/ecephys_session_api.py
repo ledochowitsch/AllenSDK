@@ -1,4 +1,5 @@
-from typing import Dict
+from typing import Dict, Optional
+from datetime import datetime
 
 import numpy as np
 import pandas as pd
@@ -16,10 +17,19 @@ class EcephysSessionApi:
     def __init__(self, *args, **kwargs):
         pass
 
+    def test(self) -> bool:
+        raise NotImplementedError
+
+    def get_session_start_time(self) -> datetime:
+        raise NotImplementedError
+
     def get_running_speed(self) -> RunningSpeed:
         raise NotImplementedError
 
     def get_stimulus_presentations(self) -> pd.DataFrame:
+        raise NotImplementedError
+
+    def get_invalid_times(self) -> pd.DataFrame:
         raise NotImplementedError
 
     def get_probes(self) -> pd.DataFrame:
@@ -41,4 +51,19 @@ class EcephysSessionApi:
         raise NotImplementedError
 
     def get_lfp(self, probe_id: int) -> xr.DataArray:
+        raise NotImplementedError
+
+    def get_optogenetic_stimulation(self) -> pd.DataFrame:
+        raise NotImplementedError
+
+    def get_spike_amplitudes(self) -> Dict[int, np.ndarray]:
+        raise NotImplementedError
+
+    def get_rig_metadata(self) -> Optional[dict]:
+        raise NotImplementedError
+
+    def get_pupil_data(self, suppress_pupil_data: bool) -> Optional[pd.DataFrame]:
+        raise NotImplementedError
+
+    def get_metadata(self):
         raise NotImplementedError

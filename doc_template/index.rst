@@ -26,7 +26,7 @@ The Allen Software Development Kit houses source code for reading and processing
 The Allen SDK focuses on the Allen Brain Observatory, Cell Types Database, and Mouse Brain Connectivity Atlas.
 
 .. ATTENTION::
-    We will be dropping for py2 support in October 2019, and any files with a py2 dependency (for example analysis files) will also be updated.
+    As of October 2019, we have dropped Python 2 support and any files with a py2 dependency (for example analysis files) have been updated.
 
 .. image:: /_static/sdk_cam.png
    :align: right
@@ -90,20 +90,34 @@ The Allen SDK provides Python code for accessing experimental metadata along wit
 
 See the `mouse connectivity section <connectivity.html>`_ for more details.
 
-What's New - Release 0.16.3 (May 22, 2019)
------------------------------------------------
+What's New - 1.1.0 (October 31, 2019)
+-----------------------------------------------------------------------
 
-The 0.16.3 release resolves changes to the api of a dependency that resizes an image:
+The 1.1.0 release adds:
+- an updated gaze mapping algorithm
+- automatic retries for failed neuropixels NWB file downloads
 
-    * `#659 <https://github.com/AllenInstitute/AllenSDK/issues/659>`_ Use pillow/Image.resize instead of scipy.misc.imresize
-    
-We also went back and made sure that the example Jupyter notebooks still run:
+and fixes:
+- several failing nightly build tests
+- warnings emitted due to use of deprecated `h5py.Dataset.value`
 
-    * `#661 <https://github.com/AllenInstitute/AllenSDK/issues/661>`_ Update example notebooks
+
+What's New - 1.0.2 (October 14, 2019)
+------------------------------------------------------------------------
+
+The 1.0.2 release brings support for the Allen Brain Observatory - Visual Coding Neuropixels dataset! This dataset is a large-scale extracellular electrophysiological survey of mouse subcortical visual cortical regions using high-density neuropixels probes. 
+To get started with these data, see the `Visual Coding - Neuropixels section <visual_coding_neuropixels.html>`_
+
+We have implemented new and improved eye-tracking methods based on Deep Lab Cut. These eye tracking results can be accessed for existing brain observatory experiments by calling `get_ophys_eye_gaze_data` on a `BrainObservatoryCache` object. For Neuropixels sessions, you can access these data by calling `get_eye_tracking_data` on an `EcephysSession` object.
+
+With this release, we are no longer supporting Python 2. 
 
 Previous Release Notes
 ----------------------
 
+    * `1.0.2 <https://github.com/AllenInstitute/AllenSDK/wiki/Release-Notes-(1.0.2)>`_
+    * `0.16.3 <https://github.com/AllenInstitute/AllenSDK/wiki/Release-Notes-(0.16.3)>`_
+    * `0.16.2 <https://github.com/AllenInstitute/AllenSDK/wiki/Release-Notes-(0.16.2)>`_
     * `0.16.2 <https://github.com/AllenInstitute/AllenSDK/wiki/Release-Notes-(0.16.2)>`_
     * `0.16.1 <https://github.com/AllenInstitute/AllenSDK/wiki/Release-Notes-(0.16.1)>`_
     * `0.16.0 <https://github.com/AllenInstitute/AllenSDK/wiki/Release-Notes-(0.16.0)>`_
@@ -115,4 +129,3 @@ Previous Release Notes
     * `0.13.1 <https://github.com/AllenInstitute/AllenSDK/wiki/Release-Notes-(0.13.1)>`_
     * `0.13.0 <https://github.com/AllenInstitute/AllenSDK/wiki/Release-Notes-(0.13.0)>`_
     * `0.12.4 <https://github.com/AllenInstitute/AllenSDK/wiki/Release-Notes-(0.12.4)>`_
-
